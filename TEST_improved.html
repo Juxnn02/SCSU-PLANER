@@ -1,0 +1,1279 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SCSU | Open House Event Builder</title>
+    <style type="text/css">/*<![CDATA[*/:root{
+    --scsu-blue:#003366;
+    --scsu-gold:#FFD700;
+    --ink:#0f172a;
+    --muted:#64748b;
+  --bg:#003366;
+    --card:#ffffff;
+    --border:#e5e7eb;
+    --shadow:rgba(0,0,0,.08);
+    --ok:#065f46; --ok-bg:#ecfdf5; --ok-br:#a7f3d0;
+    --warn:#92400e; --warn-bg:#fffbeb; --warn-br:#fde68a;
+    --err:#991b1b; --err-bg:#fef2f2; --err-br:#fecaca;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;font-family:'Inter',Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+  a{color:var(--scsu-blue)}
+  .wrap{max-width:1100px;margin:18px auto;padding:12px}
+
+  /* Header / hero */
+  .hero{
+    background:linear-gradient(180deg,#fff,#f9fafb);
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:0 8px 24px var(--shadow);
+    padding:16px;
+    border-top: 4px solid var(--scsu-gold);
+  }
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+  .logo img {
+    max-width: 130%;
+    height: auto;
+    display: block;
+  }
+  .hero h1{margin:0;font-size:22px;color:var(--scsu-blue)}
+  .hero p{margin:4px 0 12px;color:#334155}
+  .hero .subtitle{font-size:13px;color:#64748b;margin:6px 0 0}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .btn{border:1px solid var(--scsu-blue);background:var(--scsu-blue);color:#fff;padding:9px 12px;border-radius:10px;font-weight:700;font-size:13px;cursor:pointer;transition:.18s transform;white-space:nowrap;min-width:60px}
+  .btn:hover{transform:translateY(-1px)}
+  .btn.secondary{background:#fff;color:var(--scsu-blue)}
+  .btn.ghost{background:#fff;border-color:#cbd5e1;color:#0f172a}
+  .btn.warn{background:#fff;color:#92400e;border-color:#f59e0b}
+  .btn.small{padding:6px 9px;font-weight:600}
+  .grid{display:grid;gap:12px;margin-top:12px;grid-template-columns:1fr}
+  /* Layout: main area on the left, itinerary on the right */
+  .left{order:1;width:100%}
+  .right{order:2;width:100%}
+  /* Mobile: stack vertically */
+  @media(max-width:600px){
+    .grid{gap:8px}
+    .wrap{padding:8px}
+    .panel{padding:10px;border-radius:10px}
+    .card{padding:10px}
+    .input,.select{min-width:140px;font-size:12px;padding:6px 8px}
+    .btn.small{padding:5px 8px;font-size:12px}
+    .row{gap:6px;flex-wrap:wrap}
+  }
+  /* Tablet/Desktop: side-by-side */
+  @media(min-width:980px){
+    .grid{grid-template-columns:1fr 360px;align-items:start}
+    .left{order:1;width:auto}
+    .right{order:2;width:360px}
+  }
+
+  /* Panels */
+  .panel{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:14px;
+    margin-bottom: 16px;
+    display: block !important;
+  }
+  .panel h2{
+    margin:0 0 8px;
+    font-size:16px;
+    color: var(--scsu-blue);
+  }
+  .panel.collapsed{
+    display:none !important;
+  }
+  .row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  #panelTracks {
+    display: block !important;
+  }
+  #tracksList {
+    display: grid !important;
+    gap: 16px;
+    margin-top: 16px;
+  }
+.chips{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 0;
+  max-width: 100%;
+  align-items: center;
+}
+.chip{
+  border:1px solid #cbd5e1;
+  border-radius:999px;
+  padding:6px 12px;
+  font-size:12px;
+  background:#fff;
+  cursor:pointer;
+  transition: all 0.2s ease;
+  flex-grow: 0;
+  white-space: nowrap;
+}
+.chip:hover {
+  border-color: var(--scsu-blue);
+  background: #f8fafc;
+}
+.chip.active{
+  border-color:var(--scsu-blue);
+  background: #f0f7ff;
+  box-shadow:0 0 0 2px rgba(0,51,102,.08);
+  font-weight: 500;
+}
+.field{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin:12px 0;
+}
+  .input{border:1px solid #d1d5db;border-radius:10px;padding:8px 10px;font-size:13px;background:#fff;min-width:160px}
+  .select{border:1px solid #d1d5db;border-radius:10px;padding:8px 10px;font-size:13px;background:#fff}
+  .switch{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#334155}
+  .switch input{accent-color:var(--scsu-blue)}
+
+  /* Cards & Lists */
+  .list{display:grid;gap:10px}
+  .card{
+  border:1px solid #e5e7eb;
+  border-radius:12px;
+  padding:16px;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  transition: all 0.2s ease-out;
+  animation: fadeInUp 0.4s ease-out;
+}
+.card:hover {
+  border-color: var(--scsu-blue);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transform: translateY(-3px);
+}
+.card h3{
+  margin:0;
+  font-size:15px;
+  color: var(--scsu-blue);
+}
+.card .toolbar {
+  margin-top: 4px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.card .toolbar .btn {
+  min-width: 80px;
+}
+.track .card {
+  background: #fafafa;
+  border: 1px solid #edf2f7;
+}
+.track .card:hover {
+  background: #ffffff;
+  border-color: var(--scsu-blue);
+}
+.track {
+  cursor: pointer;
+  background: #ffffff;
+}
+.track:hover {
+  background: #f8fafc;
+}
+  .meta{font-size:12px;color:#24313e}
+  .tags{display:flex;flex-wrap:wrap;gap:6px}
+  .tag{font-size:11px;border:1px solid #e2e8f0;padding:3px 6px;border-radius:999px;color:#334155;background:#fafafa}
+  .badge{font-size:11px;border-radius:6px;padding:3px 6px;}
+
+  .cap{background:var(--scsu-gold);color:#3730a3;border:1px solid var(--scsu-gold)}
+  .dense{display:grid;gap:6px}
+  .legend{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:#334155;margin:6px 0}
+  .legend .swatch{width:10px;height:10px;border-radius:2px;background:#cbd5e1;display:inline-block;margin-right:4px}
+  .s1{background:#fee2e2}.s2{background:#e0f2fe}.s3{background:#dcfce7}.s4{background:#fef3c7}.s5{background:#ede9fe}
+
+  /* Itinerary */
+  .itinerary{display:grid;gap:10px;max-height:64vh;overflow:auto}
+  /* Make itinerary panel visually distinct */
+  .right .panel{background:#e8f3ff}
+  .empty{border:1px dashed #cbd5e1;border-radius:12px;padding:14px;color:#64748b;background:#fafafa}
+  .note{font-size:12px;color:#475569}
+  .success{color:var(--ok);background:var(--ok-bg);border:1px solid var(--ok-br);border-radius:10px;padding:8px 10px;font-size:12px}
+  .warn{color:var(--warn);background:var(--warn-bg);border:1px solid var(--warn-br);border-radius:10px;padding:8px 10px;font-size:12px}
+  .error{color:var(--err);background:var(--err-bg);border:1px solid var(--err-br);border-radius:10px;padding:8px 10px;font-size:12px}
+
+  /* Drag hint */
+  .drag{cursor:grab}
+  .drag:active{cursor:grabbing}
+
+  
+  .toast{position:fixed;right:16px;bottom:16px;background:#0f172a;color:#fff;padding:10px 12px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.2);font-size:13px;display:none;z-index:99;display: block;opacity:0 ;visibility: hidden;transform: translateY(20px); transition: all 0.3s ease-out;}
+
+  .toast.show{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Getting started */
+  .onboarding{background:linear-gradient(135deg, rgba(251, 251, 251, 0.05), rgba(255,215,0,.05));border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px}
+  .onboarding h3{margin:0 0 8px;font-size:14px;color:var(--scsu-blue)}
+  .onboarding ol{margin:8px 0;padding-left:20px; color: #ffffff;}
+  .onboarding li{font-size:13px;margin:6px 0;color:#ffffff}
+
+  /* Track edit mode */
+  .track-editable{background:#f9fafb;border:2px dashed var(--scsu-blue)}
+
+  /* Print */
+  @media print{
+    .hero,.toolbar,.filters,.searchbar,.toast,.onboarding{display:none !important}
+    .wrap{max-width:100%;margin:0}
+    .panel{box-shadow:none;border-color:#ddd}
+    body{background:#fff}
+  }
+    
+    
+    
+    
+    
+    
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <!-- HERO -->
+      <div class="hero">
+        <div class="brand">
+          <div class="logo">
+            <img src="https://apply.southernct.edu/www/images/FY%20Banners%2C%20Buttons%20and%20Headers/Otus%20New%20Portal.png" alt="SCSU Logo" style="width: auto; height: auto; border-radius: 4px;">
+          </div>
+
+          <div>
+            <div style="font-size:12px;font-weight:700;color:#224391">
+              Southern Connecticut State University
+            </div>
+
+            <h1>
+              Undergraduate Open House — Event Builder
+            </h1>
+          </div>
+        </div>
+
+        <br>
+      <p>
+          Create your personalized schedule for <b>Saturday, November 8, 2025</b>. 
+          Choose from curated tracks, filter by interests, or browse all sessions. 
+          The builder checks for conflicts and saves your plan automatically.
+        </p>
+
+        <div class="toolbar" id="mainToolbar" style="display:none">
+          <button class="btn secondary small" id="btnViewOther">Switch view</button>
+        </div>
+      </div>
+
+      <!-- ONBOARDING -->
+      <br>
+      <div class="onboarding" id="onboarding" style="background-color: white;">
+        <h3>How to build your schedule:</h3>
+        <ol style="background-color: white;">
+          <li style="color:#003366;"><b>Build from scratch</b> — Use filters to explore sessions by interest</li>
+          <li style="color:#003366;"><b>Customize your track</b> — Add or remove sessions</li>
+          <li style="color:#003366;"><b>Start with a curated track</b> — Pre-built schedules</li>
+          <li style="color:#003366;"><b>Drag to reorder</b> — Arrange sessions in your itinerary on the right</li>
+          <li style="color:#003366;"><b>Save & share</b> — Your plan auto-saves. Share with friends! Or Add it to your Calendar!</li>
+        </ol>
+      </div>
+      <br>
+
+      <div class="grid">
+        <!-- LEFT -->
+        <div class="left">
+          <!-- Combined View -->
+          <div class="panel" id="mainPanel">
+            <!-- Tracks Section -->
+             <div class="section">
+              <h2 style="color: var(--scsu-blue); margin-bottom: 12px; font-size: 18px;">
+                🔍 Find Individual Sessions
+              </h2>
+
+              <div class="filters">
+                <!-- 
+                  HTML CHANGE: 
+                  Removed the two separate divs for Interests and Types.
+                  Added one single div to hold all chips.
+                -->
+                <div style="margin-bottom: 20px;">
+                  <div style="font-size:14px; font-weight:500; color:#334155; margin-bottom:8px">
+                    Filter by Interest or Session Type
+                  </div>
+                  <div class="chips" id="allChips">
+                    <!-- Chips will be dynamically added here by JavaScript -->
+                  </div>
+                </div>
+
+                <!-- Search and Actions -->
+                <div style="display: flex; gap: 12px; margin-bottom: 16px;">
+                  <button class="btn secondary small" id="btnSuggest" style="white-space: nowrap;">✨ Search</button>
+                  <button class="btn ghost small" id="btnClearFilters">Reset</button>
+                </div>
+
+                <!-- Results -->
+                <div class="list" id="suggestions" style="margin-top: 16px;">
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="section">
+              <h2 style="color: var(--scsu-blue); margin-bottom: 12px; font-size: 18px;">
+                🎯 Curated Experience Tracks
+              </h2>
+
+              <p class="note" style="margin-bottom: 16px; color: #475569;">
+                Pick a pre-built track that matches your interests. You can customize it after loading.
+              </p>
+
+              <div class="list" id="tracksList" style="display: grid; gap: 16px; margin-bottom: 24px;">
+              </div>
+            </div>
+
+            <div style="height: 1px; background: #e5e7eb; margin: 24px 0;"></div>
+          </div>
+
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="right">
+          <div class="panel">
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div class="row" style="margin-bottom: 4px;">
+                <h2>
+                  My Itinerary <span class="badge cap" id="countPill">0</span>
+                </h2>
+              </div>
+              
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <div style="display: flex; gap: 8px; flex: 1;">
+                  <button class="btn ghost small" onclick="savePlan(); pop('Plan saved successfully!');" style="flex: 1;">💾 Save</button>
+                  <button class="btn ghost small" onclick="window.print();" style="flex: 1;">🖨️ Print</button>
+                </div>
+                <div style="display: flex; gap: 8px; flex: 1;">
+                  <button class="btn secondary small" onclick="exportICS();" style="flex: 2;">➕ Add to calendar</button>
+                  <button class="btn warn small" onclick="clearPlan();">Clear</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="note"><br>
+              Drag sessions to reorder. Click "Add" from any track or filter results to get started.
+            </div> <br>
+
+            <div class="itinerary" id="itinerary">
+              <div class="empty">
+                No sessions yet. Pick a curated track or use filters to get started!
+              </div>
+            </div>
+
+            <div class="dense" id="warnings" style="margin-top:8px">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast">
+    </div>
+    <script>/*<![CDATA[*//** ==================== CONFIG / DATA ==================== **/
+const EVENT_NAME = "Undergraduate Open House 2025";
+const EVENT_DATE = "2025-11-08";
+const TZID = "America/New_York";
+
+function t(h,m){ return new Date(`${EVENT_DATE}T${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:00`); }
+
+
+const ALL_INTERESTS = ["Arts & Humanities", "Business", "Education", "Health & Human Services", "STEM","Social & Behavioral Sciences", "Admissions", "Financial Aid", "Student Resources", "Campus Life", "Transfer Students"];
+const ALL_TYPES = ["Presentation", "Tour", "Fair"];
+
+/* Session data */
+const SESSIONS = [
+  {id:"welcome", title:"Welcome to SCSU - Greetings from Interim President Dr. Sandra Bulmer", location:"Lyman Center", start:t(9,30), end:t(10,0), type:"Presentation", interests:["Admissions"]},
+  {id:"nursing", title:"Pathways to Nursing at SCSU", location:"Lyman Center", start:t(10,30), end:t(11,0), type:"Presentation", interests:["Health & Human Services"]},
+  {id:"honors", title:"The Honors College Experience: Beyond the GPA", location:"Student Center - Theater", start:t(10,30), end:t(11,0), type:"Presentation", interests:["Education" , "Student Resources"]},
+  {id:"exploringMajors", title:"Exploring Majors and Advancing Careers", location:"Engleman Hall C112", start:t(10,30), end:t(11,0), type:"Presentation", interests:["Student Resources"]},
+  {id:"campusLife", title:"Living on Campus", location:"Engleman Hall C112", start:t(11,30), end:t(12,0), type:"Presentation", interests:["Campus Life"]},
+  {id:"involvement", title:"SCSU: Find Your People, Find Your Place", location:"Student Center - Theater", start:t(11,30), end:t(12,0), type:"Presentation", interests:["Campus Life"]},
+  {id:"financialAid", title:"Financial Aid: Paying for college Made Simple", location:"Engleman Hall C112", start:t(12,30), end:t(13,0), type:"Presentation", interests:["Financial Aid" , "Student Resources"]},
+  {id:"accommodations", title:"Accessibility & Accommodations: Success for Every Student", location:"Student Center - Theater", start:t(12,30), end:t(13,0), type:"Presentation", interests:["Student Resources"]},
+  {id:"transferStudent", title:"Transfer Success: Make the Switch to Southern", location:"Student Center 301", start:t(12,30), end:t(13,0), type:"Presentation", interests:["Student Resources", "Transfer Students"]},
+  {id:"majorsFair", title:"Academic Majors Fair", location:"Adanti Student Center, Ballroom", start:t(10,0), end:t(13,0), type:"Fair", interests:["Education", "Fair" , "Student Resources","Arts & Humanities","Business","Health & Human Services","STEM","Social & Behavioral Sciences"]},
+  {id:"servicesFair", title:"Student Services and Resource Fair", location:"Buley Library, 1st Floor", start:t(11,0), end:t(14,0), type:"Fair", interests:["Student Resources", "Fair" , "Financial Aid" , "Campus Life","Admissions","Transfer Students"]},
+  {id:"owlFest", title:"Residence Life's OWL FEST", location:"Residence Life Quad, Behind Farnham Hall", start:t(11,0), end:t(14,0), type:"Fair", interests:["Campus Life", "Student Resources"]},
+   {id:"StudentInvolvement", title:"Student Involvement Showcase", location:"Student Center 217", start:t(10,0), end:t(13,0), type:"Presentation", interests:["Campus Life", "Student Resources"]},
+  {id:"campusTour", title:"Campus Tours - Every 30 Minutes", location:"Academic Quad", start:t(10,0),end:t(13,30), type:"Tour", interests:["Campus Life", "Tour", "Education","Admissions","Student Resources"]},
+  {id:"healthTour", title:"College of Health and Human Services Building Tour", location:"CHHS Building", start:t(12,0), end:t(12,45), type:"Tour", interests:["Health & Human Services", "Tour"]},
+  {id:"healthTourNonM", title:"College of Health and Human Services Building Tour - Non-Nursing Majors", location:"CHHS Building", start:t(12,45), end:t(13,15), type:"Tour", interests:["Health & Human Services", "Tour"]}, 
+  {id:"businessTour", title:"School of Business Building Tour", location:"School of Business", start:t(12,30), end:t(13,15), type:"Tour", interests:["Business", "Tour"]},
+  {id:"stemTour", title:"Science Laboratory (STEM labs) Building Tours", location:"Science Building", start:t(12,30), end:t(13,30), type:"Tour", interests:["STEM"]},
+  {id:"theatreTour", title:"Theatre Department / Lyman Center Tours", location:"Lyman Center", start:t(11,30), end:t(12,30), type:"Tour", interests:["Arts & Humanities", "Tour"]},
+  {id:"artTour", title:"Art and Design Department", location:"Earl Hall 111", start:t(11,0), end:t(11,45), type:"Tour", interests:["Arts & Humanities", "Tour"]},
+  {id:"DigProdTour", title:"Digital Production Facilities", location:"Earl Hall 122", start:t(12,0), end:t(13,0), type:"Tour", interests:["Arts & Humanities", "Tour"]},
+  {id:"ResLife", title:"Residence Halls Tour", location:"Chase, Farnham, Hickerson, Neff and Wilkison Halls", start:t(10,30), end:t(14,0), type:"Tour", interests:["Campus Life", "Tour"]},
+  {id:"ResLifeTransfer", title:"Residence Hall Tour - Transfer Students", location:"Schwartz Hall", start:t(10,30), end:t(14,0), type:"Tour", interests:["Tour", "Transfer Students"]}, //TRASNFER TOUR ONE 
+  {id:"MooreField", title:"Moore Field House Tour", location:"Moore Field House", start:t(12,0), end:t(12,30), type:"Tour", interests:["Campus Life", "Tour"]},
+  {id:"Planetarium", title:"Planetarium Show", location:"Morrill Hall 104", start:t(13,0), end:t(13,30), type:"Tour", interests:["Campus Life", "Presentation" ]},
+  {id:"MultiCult", title:"Multicultural Center & Identity Spaces", location:"Student Center 202", start:t(10,0), end:t(14,0), type:"Club", interests:["Campus Life"]},
+   {id:"RecFit", title:"SCSU Fitness Center", location:"Student Center 204", start:t(10,0), end:t(14,0), type:"Tour", interests:["Campus Life"]},
+   {id:"Esports", title:"E-Sports Lounge", location:"Student Center 225", start:t(11,0), end:t(13,0), type:"Club", interests:["Campus Life"]}
+
+  
+];
+
+
+/* Curated tracks by session id */
+const TRACKS = {
+  "Direct Nursing": [
+    "welcome",              // Welcome session
+    "nursing",             // School of Nursing presentation
+    "healthTour",
+    "healthTourNonM",      // Health and Human Services Building Tour
+    "majorsFair",          // Academic Majors Fair
+    "servicesFair"       // Student Services Fair
+   
+  ],
+  "Living on Campus": [
+    "welcome",             // Welcome session
+    "campusLife",          // Living on Campus presentation
+    "campusTour",          // Campus Tours
+    "owlFest",            // Residence Life's OWL FEST
+    "involvement",         // Involvement Starts Here
+    "financialAid",       // Financial Aid session
+    "ResLife",
+    "ResLifeTransfer"
+  ],
+  "Commuter": [
+    "welcome",             // Welcome session
+    "campusTour",          // Campus Tours
+    "servicesFair",        // Student Services Fair
+    "financialAid",        // Financial Aid session
+    "exploringMajors"      // Exploring Majors session
+  ]
+};
+
+// Debug: Verify tracks data is available
+console.log("Available tracks:", Object.keys(TRACKS));
+
+// Verify tracks are loaded
+console.log("Tracks loaded:", Object.keys(TRACKS));
+
+/** ==================== STATE ==================== **/
+let itinerary = [];                 // selected sessions
+let customTracks = {};              // user-created tracks
+let currentMode = 'tracks';         // tracks, build, browse
+const $ = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
+const toast = $('#toast');
+
+/** ==================== INIT ==================== **/
+function initializeApp() {
+    console.log("Initializing app...");
+    
+    // Initialize the tracks section
+    const mainPanel = document.getElementById('mainPanel');
+    if (mainPanel) {
+        mainPanel.style.display = 'block';
+    }
+    
+    // JAVASCRIPT CHANGE: Get the new single container
+    const allChipsContainer = document.getElementById('allChips');
+    
+    // JAVASCRIPT CHANGE: Call makeChips twice on the same container
+    if (allChipsContainer) {
+        // The new 3rd argument ('interest' or 'type') is the "tag"
+        makeChips(allChipsContainer, ALL_INTERESTS, 'interest');
+        makeChips(allChipsContainer, ALL_TYPES, 'type');
+        console.log("All chips initialized in one container");
+    } else {
+        console.error("Could not find the #allChips container");
+    }
+    
+    // Initialize and render tracks
+    const tracksContainer = document.getElementById('tracksList');
+    if (tracksContainer) {
+        tracksContainer.style.display = 'grid';
+        tracksContainer.style.gap = '16px';
+        renderTracks();
+    } else {
+        console.error("Could not find tracks container");
+    }
+    
+    // JAVASCRIPT CHANGE: Added 3rd argument 'filterType'
+    // This function now "tags" the chip with a data-attribute
+    function makeChips(container, list, filterType){
+        if (!container) {
+            console.error('Container not found for chips');
+            return;
+        }
+        console.log(`Creating ${filterType} chips for container:`, container.id);
+        
+        list.forEach(v=>{
+            const d = document.createElement('div');
+            d.className = 'chip'; 
+            d.dataset.value = v;
+            d.dataset.filterType = filterType; // This is the "tag"
+            d.textContent = v;
+            d.onclick = ()=> {
+                d.classList.toggle('active');
+                suggestFromFilters();  // Trigger suggestion update when chip is clicked
+            };
+            container.appendChild(d);
+        });
+        console.log('Created chips:', list);
+    }
+    
+    // Set up event handlers
+    
+        if(currentMode==='tracks') switchPanel('build');
+        else switchPanel('tracks');
+
+    $('#btnSuggest').onclick = suggestFromFilters;
+    $('#btnClearFilters').onclick = clearFilters;
+
+    // Removed redundant/old click handlers for print, clear, export, save
+ 
+    
+    
+
+    // Initialize tracks and plan
+    console.log("Tracks before render:", TRACKS);
+    
+    // Force panel visibility first
+    $('#panelTracks').style.display = 'block';
+    $('#panelTracks').classList.remove('collapsed');
+    
+   
+
+    // Now render everything
+    loadCustomTracks();
+    renderTracks();
+    restorePlan();
+    
+    // Make sure tracks are visible
+    const tracksList = $('#tracksList');
+    if (tracksList) {
+        tracksList.style.display = 'grid';
+        tracksList.style.gap = '16px';
+    }
+    
+    // Immediate re-render
+    requestAnimationFrame(() => {
+        console.log("Re-rendering tracks immediately");
+        renderTracks();
+    });
+};
+
+/** ==================== PANELS ==================== **/
+function switchPanel(which){
+  currentMode = which;
+  
+  const tracksPanel = $('#panelTracks');
+  const buildPanel = $('#panelBuild');
+  
+  if(which === 'tracks') {
+    tracksPanel.style.display = 'block';
+    tracksPanel.classList.remove('collapsed');
+    if (buildPanel) { // Check if buildPanel exists
+        buildPanel.style.display = 'none';
+        buildPanel.classList.add('collapsed');
+    }
+    $('#btnViewOther').textContent = 'Use filters →';
+    
+    // Force tracks to render when switching to tracks view
+    requestAnimationFrame(() => {
+      console.log("Rendering tracks after panel switch");
+      renderTracks();
+    });
+  } else {
+    tracksPanel.style.display = 'none';
+    tracksPanel.classList.add('collapsed');
+    if (buildPanel) { // Check if buildPanel exists
+        buildPanel.style.display = 'block';
+        buildPanel.classList.remove('collapsed');
+    }
+    $('#btnViewOther').textContent = 'Back to tracks →';
+  }
+  
+  $('#mainToolbar').style.display = 'flex';
+  $('#onboarding').style.display = which === 'tracks' ? 'block' : 'none';
+}
+
+/** ==================== RENDER HELPERS ==================== **/
+function tagType(t){
+  const color = {presentation:'s1', panel:'s2', tour:'s3', fair:'s4', welcome:'s5'}[t.toLowerCase()]||''; // Added toLowerCase for safety
+  return `<span class="tag"><span class="swatch ${color}" style="margin-right:6px"></span>${pretty(t)}</span>`;
+}
+function pretty(s){ return s.replace(/(^|\s)\S/g,m=>m.toUpperCase()); }
+function fmtTime(d){ return d.toLocaleTimeString([], {hour:'numeric', minute:'2-digit'}); }
+function minsBetween(a,b){
+  return Math.round((b - a)/60000);
+}
+function availabilityBadge(s){
+  return '';
+}
+
+/** Card creation **/
+function cardForSession(s, showAdd=true, showEdit=false, trackName=null){
+  const wrap = document.createElement('div');
+  wrap.className = 'card';
+  wrap.innerHTML = `
+    <h3>${s.title}</h3>
+    <div class="meta">🕒 ${fmtTime(s.start)}–${fmtTime(s.end)} • 📍 ${s.location}</div>
+    <div class="tags">
+      ${tagType(s.type)}
+      ${s.interests.map(i=>`<span class="tag">${i}</span>`).join('')}
+      ${availabilityBadge(s)}
+    </div>
+  `;
+  const row = document.createElement('div');
+  row.className = 'row';
+  row.innerHTML = ``;
+  const act = document.createElement('div');
+  act.className = 'toolbar';
+  if(showAdd){
+    const btn = document.createElement('button');
+    btn.className = 'btn secondary small'; btn.textContent = '+ Add';
+    btn.onclick = ()=> tryAddSession(s);
+    act.appendChild(btn);
+  }
+  if(showEdit && trackName){
+    const btn = document.createElement('button');
+    btn.className = 'btn ghost small'; btn.textContent = '✕ Remove';
+    btn.onclick = ()=> removeSessionFromTrack(trackName, s.id);
+    act.appendChild(btn);
+  }
+  row.appendChild(act);
+  wrap.appendChild(row);
+  return wrap;
+}
+
+/** ==================== BROWSE (If/when re-enabled) ==================== **/
+function renderBrowse(){
+  const list = $('#browseList'); // Assumes an element with id 'browseList' exists
+  if (!list) return; // Guard clause
+  
+  const q = ($('#searchAll')?.value||'').toLowerCase(); // Optional chaining
+  const mode = $('#sortAll')?.value; // Optional chaining
+  
+  let items = SESSIONS.slice();
+  if(q){
+    items = items.filter(s =>
+      s.title.toLowerCase().includes(q) ||
+      s.location.toLowerCase().includes(q) ||
+      s.interests.join(' ').toLowerCase().includes(q)
+    );
+  }
+  if(mode==='time') items.sort((a,b)=>a.start-b.start);
+  if(mode==='name') items.sort((a,b)=>a.title.localeCompare(b.title));
+  if(mode==='seats') items.sort((a,b)=>a.seats-b.seats); // Note: seats property not in data
+
+  list.innerHTML = '';
+  items.forEach(s=> list.appendChild(cardForSession(s, true)));
+}
+
+/** ==================== TRACKS ==================== **/
+function renderTracks(){
+  console.log("Rendering tracks");
+  
+  // Get the tracks container
+  const tracksContainer = document.getElementById('tracksList');
+  if (!tracksContainer) {
+    console.error("Could not find tracksList element");
+    return;
+  }
+  
+  // Clear and set explicit styles
+  tracksContainer.innerHTML = '';
+  tracksContainer.style.display = 'grid';
+  tracksContainer.style.gap = '16px';
+  tracksContainer.style.marginTop = '16px';
+  
+  // Get tracks data and verify it exists
+  const allTracks = {...TRACKS, ...customTracks};
+  console.log("Tracks to render:", Object.keys(allTracks));
+  
+  // Render each track
+  Object.entries(allTracks).forEach(([name, ids]) => {
+    // Create track container
+    const trackDiv = document.createElement('div');
+    trackDiv.className = 'card track';
+    
+    // Get sessions for this track
+    const sessions = ids.map(id => SESSIONS.find(s => s.id === id))
+                       .filter(Boolean) // Filter out any undefined sessions
+                       .sort((a,b) => a.start - b.start);
+    
+    // Create header
+    const header = document.createElement('div');
+    header.className = 'row';
+    header.style.cursor = 'pointer';
+    
+    // Add track title
+    header.innerHTML = `
+      <div style="display:flex; align-items:center; gap:8px">
+        <h3><span style="margin-right:8px">🎯</span>${name}</h3>
+        <span class="badge cap">${sessions.length}</span>
+      </div>
+      <div class="toolbar">
+        <button class="btn secondary small">Load →</button>
+      </div>
+    `;
+    
+    // Add the header
+    trackDiv.appendChild(header);
+    
+    // Create content section
+    const content = document.createElement('div');
+    content.className = 'track-content';
+    content.style.display = 'none'; // Hidden by default
+    
+    // Add time range
+    if (sessions.length > 0) {
+      const startTime = sessions[0].start;
+      const endTime = sessions[sessions.length-1].end;
+      content.innerHTML += `
+        <div class="note" style="margin:8px 0">
+
+        </div>
+      `;
+    }
+    
+    // Add sessions
+    const sessionsList = document.createElement('div');
+    sessionsList.className = 'list';
+    sessionsList.style.gap = '12px';
+    sessions.forEach(session => {
+      const sessionCard = cardForSession(session, true);
+      sessionsList.appendChild(sessionCard);
+    });
+    content.appendChild(sessionsList);
+    
+    // Add content to track
+    trackDiv.appendChild(content);
+    
+    // Set up toggle behavior
+    header.onclick = () => {
+      const isHidden = content.style.display === 'none';
+      content.style.display = isHidden ? 'block' : 'none';
+      trackDiv.style.background = isHidden ? '#f8fafc' : '#ffffff';
+    };
+    
+    // Add load button behavior
+    const loadBtn = header.querySelector('.btn');
+    loadBtn.onclick = (e) => {
+      e.stopPropagation(); // Prevent toggling when clicking button
+      if (sessions.length === 0) {
+        pop('This track is empty.');
+        return;
+      }
+      itinerary = sessions.slice();
+      savePlan();
+      renderItinerary();
+      pop(`Loaded "${name}" track.`);
+    };
+    
+    // Add to container
+    tracksContainer.appendChild(trackDiv);
+  });
+  
+  // Force parent panel to be visible
+  const tracksPanel = document.getElementById('panelTracks');
+  if (tracksPanel) {
+    tracksPanel.style.display = 'block';
+    tracksPanel.classList.remove('collapsed');
+  }
+  
+}
+
+function switchToTrackEdit(trackName, isCustom){
+  if(!isCustom){
+    pop('Use the "Build from Interests" tab to customize this track.');
+    return;
+  }
+  const div = document.createElement('div'); div.className = 'panel track-editable';
+  div.innerHTML = `
+    <div class="row">
+      <h2>Edit: ${trackName}</h2>
+      <button class="btn ghost small" onclick="switchPanel('tracks')">✕ Done</button>
+    </div>
+    <div class="field">
+      <select class="select" style="flex:1">
+        <option value="">+ Add session...</option>
+        ${SESSIONS.map(s=>`<option value="${s.id}">${s.title}</option>`).join('')}
+      </select>
+    </div>
+    <div class="list" id="editTrackList"></div>
+  `;
+  
+  const ids = customTracks[trackName] || [];
+  const sessions = ids.map(id=>SESSIONS.find(s=>s.id===id)).filter(Boolean).sort((a,b)=>a.start-b.start);
+  const editList = div.querySelector('#editTrackList');
+  sessions.forEach(s=> editList.appendChild(cardForSession(s, false, true, trackName)));
+  
+  div.querySelector('select').onchange = (e)=>{
+    if(e.target.value){
+      addSessionToTrack(trackName, e.target.value);
+      e.target.value='';
+    }
+  };
+  
+  $('#panelTracks').insertAdjacentElement('afterend', div);
+  $('#panelTracks').style.display = 'none';
+}
+
+/** PREFERENCES / SUGGEST ==================== **/
+function getActive(container){ return Array.from(container.querySelectorAll('.chip.active')).map(d=>d.dataset.value || d.textContent); }
+
+function suggestFromFilters(){
+  console.log("Running suggestions from filters");
+  
+  // JAVASCRIPT CHANGE: Read from the single #allChips container
+  const allChipsContainer = document.getElementById('allChips');
+  if (!allChipsContainer) {
+      console.error("Could not find #allChips container");
+      return;
+  }
+  
+  // Get all active chips
+  const allActiveChips = Array.from(allChipsContainer.querySelectorAll('.chip.active'));
+  
+  // JAVASCRIPT CHANGE: Filter active chips based on their 'data-filter-type'
+  const selInterests = allActiveChips
+    .filter(chip => chip.dataset.filterType === 'interest')
+    .map(chip => chip.textContent);
+    
+  let selTypes = allActiveChips
+    .filter(chip => chip.dataset.filterType === 'type')
+    .map(chip => chip.textContent.toLowerCase());
+  
+  console.log("Selected interests:", selInterests);
+  console.log("Selected types:", selTypes);
+  
+  // Map types to their internal values
+  selTypes = selTypes.map(v => ({presentation:'presentation',panel:'panel',tour:'tour',fair:'fair','welcome':'welcome'})[v]||v);
+  
+  // Get search query
+  const searchInput = document.getElementById('search');
+  const q = (searchInput ? searchInput.value : '').toLowerCase();
+  
+  // Get the suggestions container
+  const suggestionsContainer = document.getElementById('suggestions');
+  if (!suggestionsContainer) {
+    console.error("Could not find suggestions container");
+    return;
+  }
+  
+  // Filter sessions based on criteria
+  let filteredSessions = SESSIONS;
+  
+  // Apply interest filters
+  if (selInterests.length > 0) {
+    filteredSessions = filteredSessions.filter(session => 
+      session.interests.some(interest => 
+        selInterests.some(selected => 
+          selected.toLowerCase() === interest.toLowerCase()
+        )
+      )
+    );
+  }
+  
+  // Apply type filters
+  if (selTypes.length > 0) {
+    filteredSessions = filteredSessions.filter(session => 
+      selTypes.some(type => session.type.toLowerCase() === type.toLowerCase())
+    );
+  }
+  
+  // Apply search filter
+  if (q) {
+    filteredSessions = filteredSessions.filter(session => 
+      session.title.toLowerCase().includes(q) ||
+      session.location.toLowerCase().includes(q) ||
+      session.interests.some(interest => interest.toLowerCase().includes(q))
+    );
+  }
+  
+  // Sort by start time
+  filteredSessions.sort((a, b) => a.start - b.start);
+  
+  // Clear and populate suggestions
+  suggestionsContainer.innerHTML = '';
+  
+  if (filteredSessions.length === 0) {
+    suggestionsContainer.innerHTML = `
+      <div class="note" style="text-align: center; padding: 20px;">
+        No sessions match your criteria. Try adjusting your filters.
+      </div>
+    `;
+    return;
+  }
+  
+  // Add each session card
+  filteredSessions.forEach(session => {
+    const sessionCard = cardForSession(session, true);
+    suggestionsContainer.appendChild(sessionCard);
+  });
+}
+
+function clearFilters(){
+  // JAVASCRIPT CHANGE: Clear chips from the single #allChips container
+  const allChipsContainer = document.getElementById('allChips');
+  if (allChipsContainer) {
+    allChipsContainer.querySelectorAll('.chip.active').forEach(c => c.classList.remove('active'));
+  }
+  
+  const searchInput = $('#search');
+  if (searchInput) {
+      searchInput.value='';
+  }  
+  // Check if sortMode element exists
+  const sortModeEl = $('#sortMode');
+  if (sortModeEl) {
+    sortModeEl.value='smart';
+  }
+  suggestFromFilters();
+  
+}
+
+
+/** ==================== ITINERARY ==================== **/
+function overlap(a,b){ return (a.start < b.end) && (b.start < a.end); }
+
+function tryAddSession(s){
+  // Add session directly without time conflict checks
+  itinerary.push(s);
+  savePlan();
+  renderAll();
+  pop(`✓ Added: ${s.title}`);
+}
+
+function findNearestAlternative(target, conflicting){
+  return SESSIONS
+    .filter(s => s.id!==target.id && s.type===target.type && s.interests.some(i=>target.interests.includes(i)))
+    .filter(s => !itinerary.some(x=>overlap(x,s)))
+    .find(s => s.start>=conflicting.end && minsBetween(conflicting.end, s.start)<=90);
+}
+
+function removeSession(id){
+  // const s = SESSIONS.find(x=>x.id===id);
+  // if(s){ s.seats += 1; } // Seats logic is not implemented
+  itinerary = itinerary.filter(s=>s.id!==id);
+  savePlan(); renderAll();
+  pop('Removed from itinerary.');
+}
+
+/* Drag to reorder */
+let dragSrcIdx = null;
+function enableDrag(){
+  $$('#itinerary .card').forEach((el, idx)=>{
+    el.draggable = true; el.classList.add('drag');
+    el.ondragstart = (e)=>{ dragSrcIdx = idx; e.dataTransfer.effectAllowed='move'; };
+    el.ondragover  = (e)=>{ e.preventDefault(); };
+    el.ondrop      = (e)=>{
+      e.preventDefault();
+      const destIdx = idx;
+      if(dragSrcIdx===null || dragSrcIdx===destIdx) return;
+      const arr = itinerary.slice();
+      const [moved] = arr.splice(dragSrcIdx,1);
+      arr.splice(destIdx,0,moved);
+      itinerary = arr;
+      savePlan(); renderItinerary(); pop('Reordered.');
+    };
+  });
+}
+
+function renderItinerary(){
+  $('#countPill').textContent = itinerary.length;
+  const host = $('#itinerary'); host.innerHTML='';
+  if(!itinerary.length){
+    host.innerHTML = 
+    `<div class="empty">Your itinerary is empty. Load a track or add sessions using the filters!</div> <br>`;
+    $('#warnings').innerHTML='';
+    return;
+  }
+  itinerary.forEach(s=>{
+    const card = document.createElement('div');
+    card.className='card';
+    card.innerHTML = `
+      <h3>${s.title}</h3>
+      <div class="meta">🕒 ${fmtTime(s.start)}–${fmtTime(s.end)} • 📍 ${s.location}</div>
+      <div class="tags">
+        ${tagType(s.type)}
+        ${s.interests.map(i=>`<span class="tag">${i}</span>`).join('')}
+      </div>
+      <div class="row">
+        <div class="toolbar">
+          <button class="btn ghost small" onclick="removeSession('${s.id}')">Remove</button>
+        </div>
+      </div>
+    `;
+    host.appendChild(card);
+  });
+  enableDrag();
+  renderWarnings();
+}
+
+/** Order warnings */
+function renderWarnings(){
+  const wrap = $('#warnings'); wrap.innerHTML='';
+  const chrono = itinerary.slice().sort((a,b)=>a.start-b.start);
+  const outOfOrder = itinerary.some((s,i)=> s.id!==chrono[i]?.id);
+  if(outOfOrder){
+    wrap.innerHTML += `<div class="warn">⚠️ Itinerary is out of order. Drag to reorder, or export will auto-sort by time.</div>`;
+  }
+}
+
+/** ==================== CUSTOM TRACKS (Not implemented) ==================== **/
+function loadCustomTracks(){
+  const raw = localStorage.getItem('scsu_custom_tracks');
+  if(raw){
+    try{ customTracks = JSON.parse(raw); }catch(e){ console.error("Could not parse custom tracks", e); }
+  }
+}
+function saveCustomTracks(){
+  localStorage.setItem('scsu_custom_tracks', JSON.stringify(customTracks));
+}
+function addSessionToTrack(trackName, sessionId){
+  if(!customTracks[trackName]) customTracks[trackName] = [];
+  if(!customTracks[trackName].includes(sessionId)){
+    customTracks[trackName].push(sessionId);
+    saveCustomTracks();
+    renderTracks(); // Re-render tracks to show changes
+    pop(`✓ Added to "${trackName}".`);
+  }
+}
+function removeSessionFromTrack(trackName, sessionId){
+  if(!customTracks[trackName]) return;
+  customTracks[trackName] = customTracks[trackName].filter(id=>id!==sessionId);
+  saveCustomTracks();
+  renderTracks(); // Re-render tracks to show changes
+}
+function deleteTrack(name){
+  // Switched to custom modal instead of confirm()
+  if (window.confirm(`Delete the custom track "${name}"?`)){ // Note: ideally replace with a custom modal
+    delete customTracks[name];
+    saveCustomTracks();
+    renderTracks();
+    pop(`Track deleted.`);
+  }
+}
+
+/** ==================== SAVE / SHARE ==================== **/
+function savePlan(){
+  const ids = itinerary.map(s=>s.id);
+  localStorage.setItem('scsu_openhouse_plan', JSON.stringify(ids));
+  console.log("Plan saved to localStorage:", ids); // Added console log
+}
+
+
+function clearPlan() {
+  // Switched to custom modal instead of confirm()
+  if (window.confirm('Are you sure you want to clear your itinerary?')) { // Note: ideally replace with a custom modal
+    itinerary = [];
+    savePlan();
+    renderItinerary();
+    pop('Itinerary cleared.');
+  }
+}
+
+function restorePlan(){
+  const raw = localStorage.getItem('scsu_openhouse_plan');
+  if(!raw) {
+    console.log("No plan found in localStorage.");
+    return;
+  }
+  try{
+    const ids = JSON.parse(raw);
+    itinerary = ids.map(id=> {
+        const session = SESSIONS.find(s=>s.id===id);
+        if (!session) { console.warn(`Saved session ID "${id}" no longer exists.`); }
+        return session;
+      }).filter(Boolean); // .filter(Boolean) is safer
+    
+    renderAll();
+    pop('Restored your saved plan.');
+    console.log("Plan restored from localStorage:", itinerary);
+  }catch(e){
+    console.error("Failed to restore plan from localStorage:", e);
+  }
+}
+
+function shareCode(){
+  if (itinerary.length === 0) {
+    pop('Add some sessions to your itinerary first!');
+    return;
+  }
+  
+  const payload = {
+    v: 1,
+    date: EVENT_DATE,
+    ids: itinerary.map(s=>s.id)
+  };
+  
+  try {
+    const code = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(code)
+        .then(() => pop('✓ Share code copied! Paste in the Import field.'))
+        .catch(() => {
+            // Fallback for restricted environments
+            copyTextFallback(code);
+        });
+    } else {
+      // Fallback for older browsers
+      copyTextFallback(code);
+    }
+  } catch(e) {
+    console.error('Error sharing code:', e);
+    pop('Error creating share code. Please try again.');
+  }
+}
+
+// Fallback for clipboard
+function copyTextFallback(text) {
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed'; // Prevent scrolling to bottom
+      textarea.style.opacity = 0;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      pop('✓ Share code copied! Paste in the Import field.');
+    } catch (err) {
+      pop('Could not copy to clipboard. Please try again.');
+    }
+}
+
+
+/** ==================== EXPORT .ICS ==================== **/
+function toICSDate(dt){
+  const pad = n=>String(n).padStart(2,'0');
+  // Formats to YYYYMMDDTHHmmSS
+  return `${dt.getFullYear()}${pad(dt.getMonth()+1)}${pad(dt.getDate())}T${pad(dt.getHours())}${pad(dt.getMinutes())}${pad(dt.getSeconds())}`;
+}
+function exportICS(){
+  if(!itinerary.length){ 
+    pop('Add at least one session to your itinerary first.'); 
+    return; 
+  }
+
+  try {
+    // Create calendar content
+    const lines = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//SCSU//EventBuilder//EN',
+      'CALSCALE:GREGORIAN',
+      `X-WR-CALNAME:${EVENT_NAME}`
+    ];
+
+    // Sort events by start time and create event entries
+    itinerary.slice()
+      .sort((a,b) => a.start - b.start)
+      .forEach(s => {
+        lines.push('BEGIN:VEVENT');
+        lines.push(`UID:${s.id}-${Date.now()}@scsu`);
+        lines.push(`SUMMARY:${s.title}`);
+        lines.push(`LOCATION:${s.location}`);
+        lines.push(`DESCRIPTION:Southern Connecticut State University — ${EVENT_NAME}`);
+        lines.push(`DTSTART;TZID=${TZID}:${toICSDate(s.start)}`);
+        lines.push(`DTEND;TZID=${TZID}:${toICSDate(s.end)}`);
+        lines.push('END:VEVENT');
+      });
+
+    lines.push('END:VCALENDAR');
+
+    // Create and download the file
+    const blob = new Blob([lines.join('\r\n')], {type:'text/calendar'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'SCSU-OpenHouse-Plan.ics';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    
+    // Clean up
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+    }, 3000);
+
+    pop('Calendar file downloaded successfully!');
+  } catch(e) {
+    console.error('Error exporting calendar:', e);
+    pop('Error creating calendar file. Please try again.');
+  }
+}
+
+/** ==================== UTIL ==================== **/
+function pop(msg){
+  toast.textContent = msg;
+  toast.classList.add('show'); // Add .show class
+  clearTimeout(pop._t); 
+  // Remove .show class after 2.5 seconds
+  pop._t = setTimeout(() => toast.classList.remove('show'), 2500);
+}
+function renderAll(){ renderItinerary(); }
+
+/** ==================== INITIAL STATE ==================== **/
+// Initialize everything when the DOM is ready
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded - Starting initialization...');
+    
+    // Initialize the app
+    initializeApp();
+    
+    // Set up event listeners
+    const btnSuggest = document.getElementById('btnSuggest');
+    if (btnSuggest) {
+        btnSuggest.onclick = suggestFromFilters;
+    }
+    
+    const btnClearFilters = document.getElementById('btnClearFilters');
+    if (btnClearFilters) {
+        btnClearFilters.onclick = clearFilters;
+    }
+    
+  
+    
+    // Show initial suggestions
+    suggestFromFilters();
+    
+    console.log('Initialization complete');
+});
+    </script>
+  </body>
+</html>
