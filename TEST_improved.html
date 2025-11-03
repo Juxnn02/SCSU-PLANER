@@ -299,11 +299,11 @@
       <div class="onboarding" id="onboarding" style="background-color: white;">
         <h3>How to build your schedule:</h3>
         <ol style="background-color: white;">
-          <li style="color:#003366;"><b>Build from scratch</b> — Use filters to explore sessions by interest</li>
-          <li style="color:#003366;"><b>Customize your track</b> — Add or remove sessions</li>
-          <li style="color:#003366;"><b>Start with a curated track</b> — Pre-built schedules</li>
-          <li style="color:#003366;"><b>Drag to reorder</b> — Arrange sessions in your itinerary on the right</li>
-          <li style="color:#003366;"><b>Save & share</b> — Your plan auto-saves. Share with friends! Or Add it to your Calendar!</li>
+          <li style="color:#003366;"><b>Build your own</b> — Filter sessions by interest</li>
+          <li style="color:#003366;"><b>Customize</b> — Add or remove sessions</li>
+          <li style="color:#003366;"><b>Use a preset track</b> — Start with a ready schedule</li>
+          <li style="color:#003366;"><b>Reorder</b> — Drag sessions to arrange</li>
+          <li style="color:#003366;"><b>Save</b> — Your plan auto-saves or Add it to your Calendar!</li>
         </ol>
       </div>
       <br>
@@ -555,9 +555,6 @@ function initializeApp() {
     
     // Set up event handlers
     
-        if(currentMode==='tracks') switchPanel('build');
-        else switchPanel('tracks');
-
     $('#btnSuggest').onclick = suggestFromFilters;
     $('#btnClearFilters').onclick = clearFilters;
 
@@ -568,10 +565,7 @@ function initializeApp() {
 
     // Initialize tracks and plan
     console.log("Tracks before render:", TRACKS);
-    
-    // Force panel visibility first
-    $('#panelTracks').style.display = 'block';
-    $('#panelTracks').classList.remove('collapsed');
+   
     
    
 
@@ -595,39 +589,7 @@ function initializeApp() {
 };
 
 /** ==================== PANELS ==================== **/
-function switchPanel(which){
-  currentMode = which;
-  
-  const tracksPanel = $('#panelTracks');
-  const buildPanel = $('#panelBuild');
-  
-  if(which === 'tracks') {
-    tracksPanel.style.display = 'block';
-    tracksPanel.classList.remove('collapsed');
-    if (buildPanel) { // Check if buildPanel exists
-        buildPanel.style.display = 'none';
-        buildPanel.classList.add('collapsed');
-    }
-    $('#btnViewOther').textContent = 'Use filters →';
-    
-    // Force tracks to render when switching to tracks view
-    requestAnimationFrame(() => {
-      console.log("Rendering tracks after panel switch");
-      renderTracks();
-    });
-  } else {
-    tracksPanel.style.display = 'none';
-    tracksPanel.classList.add('collapsed');
-    if (buildPanel) { // Check if buildPanel exists
-        buildPanel.style.display = 'block';
-        buildPanel.classList.remove('collapsed');
-    }
-    $('#btnViewOther').textContent = 'Back to tracks →';
-  }
-  
-  $('#mainToolbar').style.display = 'flex';
-  $('#onboarding').style.display = which === 'tracks' ? 'block' : 'none';
-}
+
 
 /** ==================== RENDER HELPERS ==================== **/
 function tagType(t){
@@ -808,11 +770,7 @@ function renderTracks(){
   });
   
   // Force parent panel to be visible
-  const tracksPanel = document.getElementById('panelTracks');
-  if (tracksPanel) {
-    tracksPanel.style.display = 'block';
-    tracksPanel.classList.remove('collapsed');
-  }
+//WE REMOVED 
   
 }
 
@@ -892,6 +850,16 @@ function suggestFromFilters(){
   if (!suggestionsContainer) {
     console.error("Could not find suggestions container");
     return;
+  }
+
+
+  if (selInterests.length === 0 && selTypes.length === 0) {
+      suggestionsContainer.innerHTML = `
+        <div class="note" style="text-align: center; padding: 20px; background: #fafafa; border-radius: 8px;">
+          <b>Click a filter above to see matching sessions.</b>
+        </div>
+      `;
+      return; // Stop the function here
   }
   
   // Filter sessions based on criteria
