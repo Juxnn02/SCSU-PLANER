@@ -129,15 +129,9 @@ If you want help splitting work into issues or a roadmap, create an issue or ask
 
 ---
 
-## License
-
-This project is provided under the MIT License. See LICENSE file for details (or add one if missing).
-
----
-
 ## Contact
 
 Developed for Southern Connecticut State University — Admissions.  
 For questions about this repository or embedding into Slate, contact the repo owner: @Juxnn02
 
----e .ics file.
+
