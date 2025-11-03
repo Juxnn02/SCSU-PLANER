@@ -20,7 +20,6 @@ https://apply.southernct.edu/portal/SCSU_OpenHouse
 - [Accessibility & Responsiveness](#accessibility--responsiveness)
 - [Customizing & Theme](#customizing--theme)
 - [Contributing](#contributing)
-- [License](#license)
 - [Contact](#contact)
 
 ---
