@@ -2,10 +2,10 @@ University Open House - Event Itinerary Builder
 
 A responsive, single-page web application designed to help prospective students and families build a personalized schedule for a university open house. This tool allows users to load pre-built tracks, filter hundreds of sessions, and create a custom itinerary with automatic conflict detection.
 
-This project was developed for Southern Connecticut State University (SCSU) to be embedded within their Slate portal, providing a seamless experience for registered attendees.
+This project was developed for Southern Connecticut State University (SCSU) - Admissions Department, to be embedded within their Slate portal, providing a seamless experience for registered attendees.
+https://apply.southernct.edu/portal/SCSU_OpenHouse
+<img width="1367" height="863" alt="image" src="https://github.com/user-attachments/assets/5a3849d7-8c8f-41c4-82e8-a415f5cb2dde" />
 
-(Add a screenshot here! A GIF of the app in action would be fantastic.)
-![Event Builder Demo](link-to-your-screenshot.png)
 
 🚀 Key Features
 
