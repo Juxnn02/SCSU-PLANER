@@ -14,7 +14,6 @@ https://apply.southernct.edu/portal/SCSU_OpenHouse
 - [Overview](#overview)
 - [Key Features](#key-features)
 - [Tech Stack](#tech-stack)
-- [Files of Interest](#files-of-interest)
 - [How to Use](#how-to-use)
 - [Integration Notes (Slate)](#integration-notes-slate)
 - [Accessibility & Responsiveness](#accessibility--responsiveness)
@@ -59,18 +58,6 @@ The app was developed for embedding into SCSU's Slate portal for a seamless atte
 - localStorage API — Client-side persistence.
 
 No build system or external libraries are required — drop the files into a static host and open in a modern browser.
-
----
-
-## Files of Interest
-
-(These are typical names used in this project. Your repo may contain similar or matching files.)
-
-- TEST_improved.html — A modernized scaffold and example layout for the app (open in a browser).
-- index.html or existing HTML — Main app HTML shell used when embedding in Slate.
-- styles.css — Styling and responsive layout.
-- app.js — Core application logic: session rendering, filtering, itinerary management, .ics export.
-- assets/ — Images and any static assets (e.g., uploaded screenshot(s)).
 
 ---
 
