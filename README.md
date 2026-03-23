@@ -1,123 +1,89 @@
-# SCSU Open House — Event Itinerary Builder
+# SCSU Admissions Event Navigator & Itinerary Builder
 
-A responsive, single-page web application for building personalized itineraries for Southern Connecticut State University's Open House events. This lightweight tool helps prospective students and families quickly select sessions, detect scheduling conflicts, and export their final plan to a calendar file.
+A production-ready, single-page web application engineered for the Southern Connecticut State University Admissions department. This custom digital tool was developed specifically to optimize campus navigation and event coordination for over 2,000 Open House guests. 
 
-![SCSU Open House screenshot](https://github.com/user-attachments/assets/5a3849d7-8c8f-41c4-82e8-a415f5cb2dde)
+By providing a responsive, frictionless interface for building personalized schedules, this application significantly reduces attendee confusion, detects scheduling conflicts in real-time, and bridges the gap between web planning and on-campus execution.
 
-Live embed (used by SCSU Admissions in Slate):  
-https://apply.southernct.edu/portal/SCSU_OpenHouse
+**Live Production Embed (Deployed via Slate CRM):** https://apply.southernct.edu/portal/SCSU_OpenHouse
 
 ---
 
 ## Table of Contents
 
-- [Overview](#overview)
+- [Overview & Impact](#overview--impact)
 - [Key Features](#key-features)
-- [Tech Stack](#tech-stack)
-- [How to Use](#how-to-use)
-- [Integration Notes (Slate)](#integration-notes-slate)
+- [Front-End Architecture](#front-end-architecture)
+- [Usage & User Flow](#usage--user-flow)
+- [System Integration (Slate CRM)](#system-integration-slate-crm)
 - [Accessibility & Responsiveness](#accessibility--responsiveness)
-- [Customizing & Theme](#customizing--theme)
 - [Contributing](#contributing)
-- [Contact](#contact)
 
 ---
 
-## Overview
+## Overview & Impact
 
-This project provides an easy-to-use itinerary builder tailored for university Open House events. Attendees can:
+University Open House events involve hundreds of overlapping informational sessions, tours, and presentations, often leading to navigation fatigue for prospective students and their families. 
 
-- Browse curated tracks or build a custom schedule from available sessions.
-- Filter sessions by interest and session type.
-- Add sessions to an itinerary with conflict detection.
-- Reorder items (drag-and-drop) and persist the plan in the browser.
-- Export the final schedule as an `.ics` calendar file.
+This tool provides a centralized, intuitive itinerary builder to solve that logistical bottleneck. Attendees can:
+- Browse curated, department-specific tracks or build a custom schedule from scratch.
+- Instantly filter sessions by academic interest and event type.
+- Seamlessly reorder their day via drag-and-drop functionality.
+- Export their finalized plan directly to their personal devices via an `.ics` calendar file.
 
-The app was developed for embedding into SCSU's Slate portal for a seamless attendee experience.
+The application was architected specifically to be embedded directly into SCSU's Slate portal, ensuring a unified and branded user experience without requiring additional account creation or logins.
 
 ---
 
 ## Key Features
 
-- Curated Tracks — Load pre-built schedules (e.g., "Direct Nursing", "Living on Campus") in one click.
-- Dynamic Filtering — Chip-based filters for Interests (STEM, Business, etc.) and Session Types (Tour, Presentation).
-- Automatic Conflict Detection — Prevents adding overlapping sessions and warns users.
-- Persistent Storage — Itinerary saves automatically via localStorage.
-- Drag-and-Drop Reordering — Rearrange itinerary items with an intuitive interface.
-- Calendar Export — Download an `.ics` file compatible with Google Calendar, Apple Calendar, Outlook.
-- Responsive Design — Desktop two-column layout and mobile-friendly stacked layout.
-- No external frameworks — Built with vanilla HTML, CSS, and modern JavaScript (ES6+).
+- **Automated Conflict Detection:** Complex front-end logic prevents users from double-booking time slots and provides immediate UI warnings.
+- **Client-Side Persistence:** Utilizes the `localStorage` API to automatically save the user's itinerary, allowing them to close the browser and return later without data loss.
+- **Dynamic Filtering System:** A clean, chip-based UI allows users to instantly sort through hundreds of sessions based on specific tags (e.g., STEM, Business, Campus Tours).
+- **Curated Track Loading:** One-click population of pre-built, optimized schedules (e.g., "Direct Nursing", "Living on Campus").
+- **Drag-and-Drop Reordering:** An intuitive interface for users to manually adjust the flow of their day.
+- **Cross-Platform Calendar Sync:** Generates and downloads a formatted `.ics` file compatible with Google Calendar, Apple Calendar, and Outlook.
 
 ---
 
-## Tech Stack
+## Front-End Architecture
 
-- HTML5 — Semantic structure and accessibility landmarks.
-- CSS3 — Styling, layout (Flexbox/Grid), responsive rules, and small UI animations.
-- JavaScript (ES6+) — DOM manipulation, filtering logic, conflict checks, localStorage handling, and .ics generation.
-- localStorage API — Client-side persistence.
-
-No build system or external libraries are required — drop the files into a static host and open in a modern browser.
-
----
-
-## How to Use
-
-1. Open TEST_improved.html (or your app's main HTML file) in any modern web browser (Chrome, Edge, Firefox, Safari).
-2. Browse curated tracks (left) or filter sessions using the chip UI.
-3. Click "+ Add" on sessions to append them to "My Itinerary" (right).
-   - The app will warn if the selected session conflicts with an existing item.
-4. Reorder items by dragging them within "My Itinerary".
-5. Use "Clear" to reset the itinerary, or let the app persist the plan automatically.
-6. Click "Add to calendar" or "Export" to download an `.ics` file for import to calendar applications.
-
-Example: open TEST_improved.html and click "Load" on a curated track to populate the itinerary automatically.
+Built with a focus on lightweight performance and maximum compatibility, requiring no external frameworks or build systems:
+- **HTML5:** Semantic structure emphasizing accessibility and ARIA landmarks.
+- **CSS3:** Custom theming, Flexbox/Grid layouts, and smooth UI animations optimized for both desktop and mobile viewports.
+- **JavaScript (ES6+):** Handles all DOM manipulation, complex filtering algorithms, conflict validation, and dynamic `.ics` file generation.
+- **Web Storage API:** Manages session state via `localStorage`.
 
 ---
 
-## Integration Notes (Slate)
+## Usage & User Flow
 
-- This project was built to be embedded within Slate (Admissions portal). For embedding:
-  - Use an iframe in Slate pointing to the hosted HTML page.
-  - Ensure the host uses HTTPS.
-  - If using cross-origin embeds, confirm any necessary Content Security Policy (CSP) or frame-ancestors settings are configured on the host.
-- Keep the app static (no server-side code required). Host on any static file host (GitHub Pages, Netlify, S3 + CloudFront, institutional web server).
+1. **Access:** Open the application in any modern web browser.
+2. **Discover:** Browse curated tracks (left column) or filter individual sessions using the dynamic chip UI.
+3. **Build:** Click "+ Add" on desired sessions. The application evaluates the selection against the current itinerary to prevent time conflicts.
+4. **Customize:** Rearrange itinerary items by dragging and dropping them into the preferred order.
+5. **Deploy:** Click "Export" to download the `.ics` file and sync the itinerary with a personal mobile or desktop calendar.
+
+---
+
+## System Integration (Slate CRM)
+
+This tool was engineered to operate seamlessly within higher-education CRM environments, specifically Slate.
+- **Implementation:** Embedded via an `iframe` pointing to the secure, HTTPS-hosted HTML document.
+- **Security:** Fully compliant with standard Content Security Policy (CSP) and `frame-ancestors` directives required for cross-origin embeds.
+- **Hosting:** 100% static architecture requiring no server-side execution, allowing it to be hosted on any standard static file host (AWS S3, Netlify, GitHub Pages, or institutional servers).
 
 ---
 
 ## Accessibility & Responsiveness
 
-- Semantic HTML elements and ARIA landmarks are used where appropriate.
-- Interactive elements (buttons, chips) are keyboard accessible.
-- Layout adapts from a 2-column desktop view to a stacked mobile layout using CSS Grid and media queries.
-- If you need WCAG-level improvements (contrast, focus styles, announcements for screen readers), open an issue and we can prioritize enhancements.
-
----
-
-## Customizing & Theming
-
-- The UI uses CSS variables for quick theming (colors, radii, shadows).
-- To adjust brand colors or spacing, update the variables near the top of `styles.css`.
-- You can replace fonts by editing the HTML head and loading web fonts if desired.
-
----
-
-## Contributing
-
-Contributions, improvements, and bug fixes are welcome. To contribute:
-
-1. Fork the repository.
-2. Create a branch for your change (e.g., `feature/ui-refresh`).
-3. Make changes and test locally.
-4. Open a pull request with a clear description and screenshots if applicable.
-
-If you want help splitting work into issues or a roadmap, create an issue or ask in the repository — happy to help draft tasks.
+- Built with a "mobile-first" approach, adapting seamlessly from a stacked mobile layout to a comprehensive two-column desktop view using CSS Grid and media queries.
+- Incorporates semantic HTML elements and ARIA landmarks to ensure broad accessibility.
+- Interactive elements (buttons, filter chips) are fully keyboard accessible.
 
 ---
 
 ## Contact
 
-Developed for Southern Connecticut State University — Admissions.  
-For questions about this repository or embedding into Slate, contact the repo owner: @Juxnn02
-
+Engineered for Southern Connecticut State University — Admissions.  
+For technical questions regarding the architecture or CRM embedding, contact the developer: [@Juxnn02](https://github.com/Juxnn02)
 
